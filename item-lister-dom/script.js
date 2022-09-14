@@ -25,6 +25,9 @@ function addItem(e){
     // Append new item into ul
     itemsList.appendChild(li);
 
+    // Clear input from form after being submitted 
+    form.reset();
+
     // Add delete to newItems
     let buttonDelete = document.createElement("button");
     buttonDelete.textContent = "X";
