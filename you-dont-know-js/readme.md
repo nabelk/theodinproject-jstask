@@ -1,0 +1,1 @@
+Exercise from [_You Dont Know JS_](https://github.com/getify/You-Dont-Know-JS/tree/1st-ed#titles).
