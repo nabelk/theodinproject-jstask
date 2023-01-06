@@ -1,0 +1,1 @@
+Exercise from [_here_](https://javascript.info/class).
