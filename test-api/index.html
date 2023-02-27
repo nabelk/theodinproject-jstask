@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: darkolivegreen;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        gap: 20px;
+      }
+
+      form {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        grid-auto-rows: auto;
+        gap: 10px;
+      }
+
+      button,
+      input {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <input type="search" id="search" /><input type="submit" value="Search" />
+    </form>
+    <img src="#" />
+    <button>Gimme OTHER!</button>
+    <script>
+      const img = document.querySelector("img");
+      const button = document.querySelector("button");
+      const form = document.querySelector("form");
+      button.addEventListener("click", btnClick);
+      form.addEventListener("submit", searchImg);
+
+      function searchImg(event) {
+        event.preventDefault();
+        getImg(event.target.firstElementChild.value);
+        button.className = event.target.firstElementChild.value;
+        form.reset();
+      }
+
+      function btnClick(event) {
+        getImg(event.target.className);
+      }
+
+      function errorSpan() {
+        const span = document.createElement("span");
+        span.textContent = "Search cannot be fine..";
+        setTimeout(() => span.remove(), 1500);
+        return span;
+      }
+
+      function getImg(value) {
+        img.src = "";
+        fetch(
+          `https://api.giphy.com/v1/gifs/translate?api_key=6xjYjBpFPeWA3Mc8NBJsWquHpuD24kdY&s=${value}`,
+          { mode: "cors" }
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            img.src = response.data.images.original.url;
+          })
+          .catch(function (err) {
+            form.appendChild(errorSpan());
+          });
+      }
+      button.className = "cat";
+      getImg("cat");
+    </script>
+  </body>
+</html>
