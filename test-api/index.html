@@ -53,12 +53,12 @@
 
       function errorSpan() {
         const span = document.createElement("span");
-        span.textContent = "Search cannot be fine..";
+        span.textContent = "Search cannot be find..";
         setTimeout(() => span.remove(), 1500);
         return span;
       }
 
-      function getImg(value) {
+      /*   function getImg(value) {
         img.src = "";
         fetch(
           `https://api.giphy.com/v1/gifs/translate?api_key=6xjYjBpFPeWA3Mc8NBJsWquHpuD24kdY&s=${value}`,
@@ -74,6 +74,23 @@
             form.appendChild(errorSpan());
           });
       }
+ */
+      // Async/await method
+
+      async function getImg(value) {
+        img.src = "";
+        try {
+          const response = await fetch(
+            `https://api.giphy.com/v1/gifs/translate?api_key=6xjYjBpFPeWA3Mc8NBJsWquHpuD24kdY&s=${value}`,
+            { mode: "cors" }
+          );
+          const catData = await response.json();
+          img.src = catData.data.images.original.url;
+        } catch (error) {
+          form.appendChild(errorSpan());
+        }
+      }
+
       button.className = "cat";
       getImg("cat");
     </script>
